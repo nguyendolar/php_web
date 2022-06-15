@@ -39,13 +39,14 @@
                                         <th>Giá</th>
                                         <th>Số lượng</th>
                                         <th>Danh mục</th>
+                                        <th>Người dùng</th>
                                         <th>Mô tả</th>
                                         <th>Thao tác</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 <?php 
-                                    $query = "SELECT a.*,b.name FROM products as a, category as b Where a.account_id = '{$_SESSION['id']}' AND a.category_id = b.id ORDER BY a.id DESC";
+                                    $query = "SELECT a.*,b.name,c.role,c.name as 'accountname' FROM products as a, category as b, accounts as c Where a.category_id = b.id AND a.account_id = c.id ORDER BY a.id DESC";
                                     $result = mysqli_query($connect, $query);
                                 
                                     $stt = 1;
@@ -68,28 +69,16 @@
                                         </td>
                                         <td style="width : 120px !important "><?php echo $arUser["price"] ?>đ</td>
                                         <td style="width : 20px !important "><?php echo $arUser["quantity"] ?></td>
-                                        <td style="width : 150px !important "><?php echo $arUser["name"] ?></td>
+                                        <td style="width : 130px !important "><?php echo $arUser["name"] ?></td>
+                                        <td style="width : 110px !important "><?php echo $arUser["accountname"] ?></td>
                                         <td>
                                         <a href="#" data-bs-toggle="modal"
                                                 data-bs-target="#<?php echo $idModelDes ?>">
                                                 Xem
                                         </a>
                                         </td>
-                                        <td style="width : 230px !important ">
-                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                                data-bs-target="#<?php echo $idModelEdit ?>">
-                                                Sửa
-                                            </button>
-                                            <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                                data-bs-target="#<?php echo $idModelDel ?>">
-                                                Xóa
-                                            </button>
-                                            <button type="button" class="btn btn-warning" data-bs-toggle="modal"
-                                                data-bs-target="#<?php echo $idModelAddImg ?>">
-                                                Thêm ảnh
-                                            </button>
-                                            <!--Xem mô tả-->
-                                            <div class="modal fade" id="<?php echo $idModelDes ?>" tabindex="-1"
+                                        <!--Xem mô tả-->
+                                        <div class="modal fade" id="<?php echo $idModelDes ?>" tabindex="-1"
                                          aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog modal-lg">
                                                     <div class="modal-content">
@@ -107,6 +96,23 @@
                                                 </div>
                                             </div>
                                             <!--Xem mô tả-->
+                                        <?php if($arUser["role"] == 1){?>
+<td></td>
+                                            <?php } else{ ?>
+                                        <td style="width : 230px !important ">
+                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                                data-bs-target="#<?php echo $idModelEdit ?>">
+                                                Sửa
+                                            </button>
+                                            <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                                data-bs-target="#<?php echo $idModelDel ?>">
+                                                Xóa
+                                            </button>
+                                            <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                                                data-bs-target="#<?php echo $idModelAddImg ?>">
+                                                Thêm ảnh
+                                            </button>
+                                            
                                             <!--Xóa-->
                                             <div class="modal fade" id="<?php echo $idModelDel ?>" tabindex="-1"
                                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -176,7 +182,7 @@
                                             </div>
                                             <!--Thêm ảnh-->
                                         </td>
-
+                                        <?php } ?>
                                     </tr>
                                     <!-- Sửa-->
                                     <div class="modal fade" id="<?php echo $idModelEdit ?>" tabindex="-1"
