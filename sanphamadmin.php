@@ -96,8 +96,86 @@
                                                 </div>
                                             </div>
                                             <!--Xem mô tả-->
-                                        <?php if($arUser["role"] == 1){?>
-<td></td>
+                                        <?php if($arUser["role"] == 1 && $arUser["account_id"] != $_SESSION['id'] ){?>
+                                            <td style="width : 230px !important ">
+                                            <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                                data-bs-target="#<?php echo $idModelDel ?>">
+                                                Xóa
+                                            </button>
+                                            <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                                                data-bs-target="#<?php echo $idModelAddImg ?>">
+                                                Thêm ảnh
+                                            </button>
+                                            
+                                            <!--Xóa-->
+                                            <div class="modal fade" id="<?php echo $idModelDel ?>" tabindex="-1"
+                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Bạn chắc chắn muốn xóa ?</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                    aria-label="Close"></button>
+                                                        </div>
+
+                                                        <div class="modal-body">
+                                                            Sản phẩm : <?php echo $arUser["title"] ?>
+                                                            <form action="function.php" method="post">
+                                                                <input type="hidden" class="form-control" id="id" name="id" value="<?php echo $arUser["id"] ?>">
+                                                                <div class="modal-footer" style="margin-top: 20px">
+                                                                    <button style="width:100px" type="button" class="btn btn-secondary"
+                                                                            data-bs-dismiss="modal">
+                                                                        Đóng
+                                                                    </button>
+                                                                    <button style="width:100px" type="submit" class="btn btn-danger" name="deleteproduct"> Xóa</button>
+
+                                                                </div>
+
+                                                            </form>
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--Xóa-->
+                                            <!--Thêm ảnh-->
+                                            <div class="modal fade" id="<?php echo $idModelAddImg ?>" tabindex="-1"
+                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Thêm ảnh cho sản phẩm : <?php echo $arUser["title"] ?></h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                    aria-label="Close"></button>
+                                                        </div>
+
+                                                        <div class="modal-body">
+                                                            <form action="function.php" method="post">
+                                                                <input type="hidden" class="form-control" id="id" name="id" value="<?php echo $arUser["id"] ?>">
+                                                                <div class="mb-3">
+                                                                    <label for="category-film"
+                                                                        class="col-form-label">Ảnh:</label>
+                                                                    <input type="text" class="form-control" id="category-film" name="image" required>
+                                                                </div>
+                                                                <div class="modal-footer" style="margin-top: 20px">
+                                                                    <button style="width:100px" type="button" class="btn btn-secondary"
+                                                                            data-bs-dismiss="modal">
+                                                                        Đóng
+                                                                    </button>
+                                                                    <button style="width:100px" type="submit" class="btn btn-warning" name="addimage"> Thêm</button>
+
+                                                                </div>
+
+                                                            </form>
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--Thêm ảnh-->
+                                        </td>
                                             <?php } else{ ?>
                                         <td style="width : 230px !important ">
                                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
